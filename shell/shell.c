@@ -15,6 +15,7 @@ int main()
         printf("> ");
         scanf("%s", comando);
         
+        //Esse eh um teste
         
         
         if (!strcmp(comando, "exit")) {
