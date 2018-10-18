@@ -10,14 +10,33 @@ int main()
 {
     char comando[MAX];
     int pid;
+    char *argumentos[MAX];
 
     while (1) {
         printf("> ");
-        scanf("%s", comando);
+        fgets(comando, MAX, stdin);
         
-        //Esse eh um teste
-        
-        
+        char *arg;
+
+        // strcpy(argumentos[0], comando);
+        arg = strtok(comando, " ");
+        argumentos[0] = arg;
+
+        //printf("'%s'\n", arg);
+        //printf("'%s'\n", argumentos[0]);
+
+        int i = 1;
+        while (arg != NULL) {
+            arg = strtok(NULL, "' ', '\n'");
+            // printf("'%s'\n", arg);
+            argumentos[i] = arg;
+            //printf("'%s'\n", argumentos[i]);
+            i++;
+
+        }
+
+
+
         if (!strcmp(comando, "exit")) {
             exit(EXIT_SUCCESS);
         }
@@ -26,7 +45,7 @@ int main()
         if (pid) {
             waitpid(pid, NULL, 0);
         } else {
-            execlp(comando, comando, NULL);
+            execvp(argumentos[0], argumentos);
             printf("Erro ao executar comando!\n");
             exit(EXIT_FAILURE);
         }

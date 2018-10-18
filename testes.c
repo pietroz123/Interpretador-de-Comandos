@@ -6,11 +6,12 @@
 
 int main() {
 
-    char *comando = (char*) malloc (sizeof(char) * MAX);
+    char comando[MAX];
     char *argumentos;
 
-    scanf("%[^\n]s", comando);
+    fgets(comando, MAX, stdin);
     printf("comando: %s\n", comando);
+
 
     int i = 0;
     argumentos = strtok(comando, " ");
@@ -21,7 +22,7 @@ int main() {
         i++;
     }
 
-    char *ARGUMENTOS[3];
+    char *ARGUMENTOS[MAX];
     ARGUMENTOS[0] = "file1";
     ARGUMENTOS[1] = "file2";
     ARGUMENTOS[2] = NULL;
