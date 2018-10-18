@@ -18,18 +18,18 @@ int main()
         
         char *arg;
 
-        // strcpy(argumentos[0], comando);
-        arg = strtok(comando, " ");
+        arg = strtok(comando, " \n");
         argumentos[0] = arg;
+        // strcpy(argumentos[0], arg);
 
         //printf("'%s'\n", arg);
         //printf("'%s'\n", argumentos[0]);
 
         int i = 1;
         while (arg != NULL) {
-            arg = strtok(NULL, "' ', '\n'");
-            // printf("'%s'\n", arg);
+            arg = strtok(NULL, " \n");
             argumentos[i] = arg;
+            //printf("'%s'\n", arg);
             //printf("'%s'\n", argumentos[i]);
             i++;
 
