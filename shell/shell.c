@@ -47,9 +47,13 @@ int main()
            if (Resultado != 0)
                 waitpid(pid, NULL, 0);
         } else {
-            if (Resultado != 0){
+            // Verifica execucao em segundo plano (&)
+            if (Resultado != 0) {
+                // Verifica redirecao ('<' e '>')
                 if (strcmp(argumentos[i-3], ">") == 0) {
                     freopen(argumentos[i-2], "w", stdout);
+                } else if (strcmp(argumentos[i-3], "<") == 0) {
+                    freopen(argumentos[i-2], "r", stdin);
                 }
                 argumentos[i-3] = NULL; // Tira o '>' (execvp lê até NULL)
                 execvp(argumentos[0], argumentos);

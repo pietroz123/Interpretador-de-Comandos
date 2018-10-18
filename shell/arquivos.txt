@@ -1,4 +1,7 @@
-A
-arquivos.txt
-Makefile
-shell.c
+pietro
+bianca
+gustavo
+yakult
+silvia
+valquiria
+pedro
