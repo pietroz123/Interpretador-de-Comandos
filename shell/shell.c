@@ -18,20 +18,16 @@ int main()
         
         char *arg;
 
+        // Pega o primeiro argumento (nome do comando)
         arg = strtok(comando, " \n");
         argumentos[0] = arg;
 
-        //printf("'%s'\n", arg);
-        // printf("'%s'\n", argumentos[0]);
-
         int i = 1;
         while (arg != NULL) {
+            // Separa os próximos argumentos
             arg = strtok(NULL, " \n");
             argumentos[i] = arg;
-            //printf("'%s'\n", arg);
-            // printf("'%s'\n", argumentos[i]);
             i++;
-
         }
 
         if (!strcmp(comando, "exit")) {
@@ -55,10 +51,10 @@ int main()
                 } else if (strcmp(argumentos[i-3], "<") == 0) {
                     freopen(argumentos[i-2], "r", stdin);
                 }
-                argumentos[i-3] = NULL; // Tira o '>' (execvp lê até NULL)
+                argumentos[i-3] = NULL; // Tira '>' e '<' (execvp lê até NULL)
                 execvp(argumentos[0], argumentos);
             } else {
-                argumentos[i-2] = NULL; // Tira o '&'
+                argumentos[i-2] = NULL; // Tira '&'
                 execvp(argumentos[0], argumentos);
             }
             printf("Erro ao executar comando!\n");
