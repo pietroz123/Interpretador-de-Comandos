@@ -1,0 +1,4 @@
+A
+arquivos.txt
+Makefile
+shell.c

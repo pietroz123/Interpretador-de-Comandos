@@ -40,8 +40,7 @@ int main()
 
         // Verifica se o último comando é '&' 
         int Resultado = strcmp(argumentos[i-2], "&");
-        
-
+       
         pid = fork();
         if (pid) {
             // Processo pai
@@ -49,6 +48,10 @@ int main()
                 waitpid(pid, NULL, 0);
         } else {
             if (Resultado != 0){
+                if (strcmp(argumentos[i-3], ">") == 0) {
+                    freopen(argumentos[i-2], "w", stdout);
+                }
+                argumentos[i-3] = NULL; // Tira o '>' (execvp lê até NULL)
                 execvp(argumentos[0], argumentos);
             } else {
                 argumentos[i-2] = NULL; // Tira o '&'
