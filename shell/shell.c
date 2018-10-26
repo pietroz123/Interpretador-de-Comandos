@@ -29,13 +29,18 @@ int main()
             argumentos[i] = arg;
             i++;
         }
+        i--;
+
+        printf("i final: %d\n", i);
+        for (int j = 0; j <= i; j++)
+            printf("argumentos[%d]: %s\n", j, argumentos[j]);
 
         if (!strcmp(comando, "exit")) {
             exit(EXIT_SUCCESS);
         }
 
         // Verifica se o último comando é '&' 
-        int Resultado = strcmp(argumentos[i-2], "&");
+        int Resultado = strcmp(argumentos[i-1], "&");
        
         pid = fork();
         if (pid) {
@@ -44,17 +49,18 @@ int main()
                 waitpid(pid, NULL, 0);
         } else {
             // Verifica execucao em segundo plano (&)
-            if (Resultado != 0) {
-                // Verifica redirecao ('<' e '>')
-                if (strcmp(argumentos[i-3], ">") == 0) {
-                    freopen(argumentos[i-2], "w", stdout);
-                } else if (strcmp(argumentos[i-3], "<") == 0) {
-                    freopen(argumentos[i-2], "r", stdin);
-                }
-                argumentos[i-3] = NULL; // Tira '>' e '<' (execvp lê até NULL)
+            if (Resultado == 0) {
+                argumentos[i-1] = NULL; // Tira '&'
                 execvp(argumentos[0], argumentos);
             } else {
-                argumentos[i-2] = NULL; // Tira '&'
+                // Verifica redirecao ('<' e '>')
+                if (strcmp(argumentos[i-2], ">") == 0) {
+                    freopen(argumentos[i-1], "w", stdout);
+                    argumentos[i-2] = NULL; // Tira '>' (execvp lê até NULL)
+                } else if (strcmp(argumentos[i-2], "<") == 0) {
+                    freopen(argumentos[i-1], "r", stdin);
+                    argumentos[i-2] = NULL; // Tira '<' (execvp lê até NULL)
+                }
                 execvp(argumentos[0], argumentos);
             }
             printf("Erro ao executar comando!\n");
