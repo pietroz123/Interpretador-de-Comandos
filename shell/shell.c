@@ -31,10 +31,6 @@ int main()
         }
         i--;
 
-        printf("i final: %d\n", i);
-        for (int j = 0; j <= i; j++)
-            printf("argumentos[%d]: %s\n", j, argumentos[j]);
-
         if (!strcmp(comando, "exit")) {
             exit(EXIT_SUCCESS);
         }
